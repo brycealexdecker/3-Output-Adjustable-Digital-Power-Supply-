@@ -35,3 +35,16 @@ Describe the problem being addressed, the approach taken, and the main outcome o
 1. Clone the repository:
    ```bash
    git clone https://github.com/username/repository-name.git
+
+---
+
+## Contributors
+- Your Name — Project design, implementation, documentation
+- Contributor Name — Testing, validation, debugging
+- Contributor Name — Hardware design / simulation support
+
+---
+
+## References
+-
+-

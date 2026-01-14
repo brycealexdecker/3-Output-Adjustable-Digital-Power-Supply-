@@ -46,5 +46,6 @@ Describe the problem being addressed, the approach taken, and the main outcome o
 ---
 
 ## References
--
+1. Purdue University SharePoint – 3 Output Power Supply Project Files:  
+   https://purdue0-my.sharepoint.com/:f:/r/personal/decker93_purdue_edu/Documents/3%20Output%20PS%20Projects?csf=1&web=1&e=xBjRwA
 -

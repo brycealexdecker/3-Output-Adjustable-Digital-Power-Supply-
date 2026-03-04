@@ -60,7 +60,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %% General Inputs 
-Vs = 400;
+Vs = 380;
 f = 300e3;
 SamplePerT = 800; % the number of samples in each period T
 tstart = 0;
@@ -69,21 +69,24 @@ tend = 3e-3;
 % Flyback Inputs
 FL = .6e-3;
 FC = 8e-4;
-FD = .05;
+FD = .1757;
 NptoNs = 9;
-VFout = 2.34;
+Fr_on = 0; 
+FVd_on = 0;
 
 % Buck Inputs 
 
 BL = 600e-6;
 BC = 5.82e-6;
-BR = .01;
-BD = .05;
-VBout = .1;
+BR = .5;
+BD = .3571;
+Br_on = 0;
+BVd_on = 0;
 
-% Flyback R Calc
-PBout =  VBout^2  * BR;
-FR = VFout ^ 2 / PBout;
+% Transitor on resitsance
+RT1 = 10000000;
+RT2 = 10000000; 
+
 
 %% Intiization of varaibls and Arrays 
 T = 1 / f;
@@ -157,23 +160,23 @@ figure ()
 plot(t,vFC)
 xlabel("time (sec)")
 ylabel("Output Voltage (V)")
-title("Output Voltage Vs Time")
+title("Output Flyback Voltage Vs Time")
 
-% figure ()
-% plot(t,iFL)
-% xlabel("time (sec)")
-% ylabel("Inductor Current (A)")
-% title("Inductor Current Vs Time")
+figure ()
+plot(t,iFL)
+xlabel("time (sec)")
+ylabel("Inductor Current (A)")
+title("Flyback Inductor Current Vs Time")
 
 % The Full Response
 figure ()
 plot(t,vBR)
 xlabel("time (sec)")
 ylabel("Output Voltage (V)")
-title("Output Voltage Vs Time")
+title("Output Buck Voltage Vs Time")
 
 figure ()
 plot(t,iBL)
 xlabel("time (sec)")
 ylabel("Inductor Current (A)")
-title("Inductor Current Vs Time")
+title("Inductor Buck Current Vs Time")

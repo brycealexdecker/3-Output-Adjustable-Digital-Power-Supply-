@@ -59,31 +59,43 @@ while (t(k) < tend)
     Fsw = swch(t(k),FD,T);
     Bsw = swch(t(k),BD,T);
     
-    a = ((delta_t * (~Fsw) * NptoNs) / FL );
-    b = (1 );
-    c = (1 + delta_t / (FR * FC));
-    d = (-(delta_t * Fsw * NptoNs) / FC);
 
-    A = [a , b ; c , d];
-    B = [iFL(k) + Fsw * Vs * delta_t / FL ; vFC(k)];
+
+    a = 1 + delta_t * Fsw * Fr_on / FL;
+    b = 0;
+    c = delta_t * (~Fsw) * NptoNs / FL;
+    d = 0;
+
+    e = 0;
+    g = 1 + delta_t * Bsw * Br_on / BL;
+    h = -delta_t * Bsw / BL;
+    l = delta_t * (~Bsw) / BL;
+
+    m = -delta_t * (~Fsw) * NptoNs / FC;
+    n = delta_t * Bsw / FC;
+    o = 1 + delta_t / (FC * RT1);
+    p = 0;
+
+    q = 0;
+    r = - delta_t / BC;
+    s = 0;
+    u = 1  + delta_t / (BC * BR) + (delta_t / (BC * RT2));
+
+    z = iFL(k) + Fsw * delta_t * Vs / FL - (~Fsw) * delta_t * FVd_on * NptoNs /FL;
+    y = iBL(k) - delta_t * (~Bsw) * BVd_on / BL;
+    w = vFC(k);
+    x = vBC(k);
+
+    A = [a , b , c , d; e , g , h, l; m , n , o , p; q , r , s , u];
+    B = [z ; y ; w ; x];
     E = A\B;
     
     % Values Gotten from Differational Equation Approximation
-    vFC(k+1) = E(1); 
-    iFL(k+1) = E(2);
-
-    a = (delta_t / BL );
-    b = (1);
-    c = (1 + delta_t / (BR * BC));
-    d = (-delta_t / BC);
-
-    A = [a , b ; c , d];
-    B = [iBL(k) + Bsw * vFC(k) * delta_t / BL ; vBC(k)];
-    E = A\B;
-    
-    % Values Gotten from Differational Equation Approximation
-    vBC(k+1) = E(1); 
+    iFL(k+1) = E(1);
     iBL(k+1) = E(2);
+    vFC(k+1) = E(3); 
+    vBC(k+1) = E(4); 
+    
 
     if (iFL(k+1) < 0) 
         iFL(k+1) = 0;
@@ -96,9 +108,6 @@ while (t(k) < tend)
     iBR(k+1) = vBR(k+1) / BR;
 
     t(k+1) = t(k) + delta_t;
-
-    % PBout =  vBC(k) .^ 2  .* BR;
-    % FR = vFC(k) .^ 2 ./ PBout;
 
     k = k+1; 
 

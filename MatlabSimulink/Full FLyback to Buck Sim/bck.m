@@ -69,17 +69,17 @@ while (t(k) < tend)
     e = 0;
     g = 1 + delta_t * Bsw * Br_on / BL;
     h = -delta_t * Bsw / BL;
-    l = delta_t * (~Bsw) / BL;
+    l = delta_t / BL;
 
-    m = -delta_t * (~Fsw) * NptoNs / FC;
-    n = delta_t * Bsw / FC;
+    m = - delta_t * (~Fsw) * NptoNs / FC;
+    n = (Bsw) * delta_t * Bsw / FC;
     o = 1 + delta_t / (FC * RT1);
     p = 0;
 
     q = 0;
     r = - delta_t / BC;
     s = 0;
-    u = 1  + delta_t / (BC * BR) + (delta_t / (BC * RT2));
+    u = 1  + (delta_t / (BC * BR)) + (delta_t / (BC * RT2));
 
     z = iFL(k) + Fsw * delta_t * Vs / FL - (~Fsw) * delta_t * FVd_on * NptoNs /FL;
     y = iBL(k) - delta_t * (~Bsw) * BVd_on / BL;
@@ -106,6 +106,16 @@ while (t(k) < tend)
 
     vBR(k+1) = vBC(k+1);
     iBR(k+1) = vBR(k+1) / BR;
+
+
+    vBL(k+1) = vFC(k+1) *Bsw + -vBC(k+1);
+    vFL(k+1) = (Fsw * Vs - (~Fsw) * vFC(k+1) * NptoNs);
+    iFC(k+1) = -(((~Fsw) * -iFL(k+1) * NptoNs) + (-iBL(k+1) * Bsw));
+
+    
+
+
+
 
     t(k+1) = t(k) + delta_t;
 

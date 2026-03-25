@@ -64,33 +64,33 @@ Vs = 380;
 f = 300e3;
 SamplePerT = 800; % the number of samples in each period T
 tstart = 0;
-tend = 2e-3;
+tend = 3e-3;
 
 % Flyback Inputs
 FL = 600e-6;
-FC = 100e-6;
-FD = .2;
+FC = 8e-6;
+%FD = .1757;
 NptoNs = 9;
-Fr_on = .34; 
-FVd_on = 2.1;
+Fr_on = 0; 
+FVd_on = 0;
 
 % Buck Inputs 
 
 BL = 60e-6;
 BC = 5.82e-6;
-BR = .5;
-BD = .5;
-Br_on = .0245;
-BVd_on = 1.1;
+BR = ;
+%BD = .1;
+Br_on = 0;
+BVd_on = 0;
 
 % Transitor on resitsance
 RT1 = 10000000;
 RT2 = 10000000; 
 
 % Vref 
-Vref = 15; 
+Vref = 10; 
 
-%[FD,BD] = DutyCycleSetter(Vs, NptoNs, Vref);
+[FD,BD] = DutyCycleSetter(Vs, NptoNs, Vref);
 
 
 %% Intiization of varaibls and Arrays 

@@ -115,8 +115,6 @@ while (t(k) < tend)
     
 
 
-
-
     t(k+1) = t(k) + delta_t;
 
     k = k+1; 

@@ -64,12 +64,14 @@ Vs = 380;
 f = 300e3;
 SamplePerT = 800; % the number of samples in each period T
 tstart = 0;
-tend = 3e-3;
+tend = 2e-3;
+
+% The flyback with two outputs have the same components for both outputs
 
 % Flyback Inputs
 FL = 600e-6;
-FC = 8e-6;
-%FD = .1757;
+FC = 100e-6;
+FD = .2;
 NptoNs = 9;
 Fr_on = 0; 
 FVd_on = 0;
@@ -78,19 +80,26 @@ FVd_on = 0;
 
 BL = 60e-6;
 BC = 5.82e-6;
-BR = ;
-%BD = .1;
+BD = .5;
 Br_on = 0;
 BVd_on = 0;
 
+% Load Currents 
+
+BR1 = .5;
+BR2 = .25;
+
 % Transitor on resitsance
+
 RT1 = 10000000;
 RT2 = 10000000; 
+RT3 = 10000000;
+RT4 = 10000000; 
 
 % Vref 
-Vref = 10; 
+Vref = 15; 
 
-[FD,BD] = DutyCycleSetter(Vs, NptoNs, Vref);
+%[FD,BD] = DutyCycleSetter(Vs, NptoNs, Vref);
 
 
 %% Intiization of varaibls and Arrays 
@@ -103,26 +112,50 @@ t = [];
 % Flyback
 iFL = []; 
 vFL = []; 
-iFC = [];
-vFC = [];
-iFR = [];
-vFR = [];
+
+iFC1 = [];
+vFC1 = [];
+iFR1 = [];
+vFR1 = [];
 iFsw1 = [];
 vFsw1 = [];
+iFsw3 = [];
+vFsw3 = [];
+
+iFC2 = [];
+vFC2 = [];
+iFR2 = [];
+vFR2 = [];
 iFsw2 = [];
 vFsw2 = [];
+iFsw4 = [];
+vFsw4 = [];
+
+i2 = [];
+i3 = [];
 
 % Buck
-iBL = []; 
-vBL = []; 
-iBC = [];
-vBC = [];
-iBR = [];
-vBR = [];
+iBL1 = []; 
+vBL1 = []; 
+iBC1 = [];
+vBC1 = [];
+iBR1 = [];
+vBR1 = [];
 iBsw1 = [];
 vBsw1 = [];
+iBsw3 = [];
+vBsw3 = [];
+
+iBL2 = []; 
+vBL2 = []; 
+iBC2 = [];
+vBC2 = [];
+iBR2 = [];
+vBR2 = [];
 iBsw2 = [];
 vBsw2 = [];
+iBsw4 = [];
+vBsw4 = [];
 
 % Initial Values 
 % (only Capacitor Voltage and Inuctor current matters)
@@ -132,72 +165,65 @@ t(1) = tstart;
 % FLyback
 iFL(1) = 0; 
 vFL(1) = 0; 
-iFC(1) = 0;
-vFC(1) = 0;
-iFR(1) = 0;
-vFR(1) = 0;
+
+iFC1(1) = 0;
+vFC1(1) = 0;
+iFR1(1) = 0;
+vFR1(1) = 0;
 iFsw1(1) = 0;
 vFsw1(1) = 0;
+iFsw3(1) = 0;
+vFsw3(1) = 0;
+
+iFC2(1) = 0;
+vFC2(1) = 0;
+iFR2(1) = 0;
+vFR2(1) = 0;
 iFsw2(1) = 0;
 vFsw2(1) = 0;
+iFsw4(1) = 0;
+vFsw4(1) = 0;
+
+i2(1) = 0;
+i3(1) = 0;
 
 % Buck
-iBL(1) = 0; 
-vBL(1) = 0; 
-iBC(1) = 0;
-vBC(1) = 0;
-iBR(1) = 0;
-vBR(1) = 0;
+iBL1(1) = 0; 
+vBL1(1) = 0; 
+iBC1(1) = 0;
+vBC1(1) = 1;
+iBR1(1) = 0;
+vBR1(1) = 0;
 iBsw1(1) = 0;
 vBsw1(1) = 0;
+iBsw3(1) = 0;
+vBsw3(1) = 0;
+
+iBL2(1) = 0; 
+vBL2(1) = 0; 
+iBC2(1) = 0;
+vBC2(1) = 1;
+iBR2(1) = 0;
+vBR2(1) = 0;
 iBsw2(1) = 0;
 vBsw2(1) = 0;
+iBsw4(1) = 0;
+vBsw4(1) = 0;
 
 %% Involking the Calculation Sript
-bck
+bck2O
 
 %% Plots 
-avg_start = k - 4*SamplePerT;
-avg_end = avg_start + SamplePerT;
-
-% The Full Response
-figure ()
-plot(t,vFC)
-xlabel("time (sec)")
-ylabel("Output Voltage (V)")
-title("Output Flyback Voltage Vs Time")
+% avg_start = k - 4*SamplePerT;
+% avg_end = avg_start + SamplePerT;
+% 
 
 figure ()
-plot(t,iFL)
-xlabel("time (sec)")
-ylabel("Inductor Current (A)")
-title("Flyback Inductor Current Vs Time")
-
-% The Full Response
-figure ()
-plot(t,vBR)
-xlabel("time (sec)")
-ylabel("Output Voltage (V)")
-title("Output Buck Voltage Vs Time")
+plot(t,vBC1)
 
 figure ()
-plot(t,iBL)
-xlabel("time (sec)")
-ylabel("Inductor Current (A)")
-title("Inductor Buck Current Vs Time")
+plot(t,vBC2)
 
-figure ()
-plot(t,iFC)
-xlabel("time (sec)")
-ylabel("Inductor Current (A)")
-title("Inductor Buck Current Vs Time")
 
-figure ()
-plot(t,vBL)
-xlabel("time (sec)")
-ylabel("Inductor Current (A)")
-title("Inductor Buck Current Vs Time")
 
 % Calculate the average values for the output voltage and inductor current
-avgVoltage = mean(iBL(avg_start:avg_end));
-display(avgVoltage)
